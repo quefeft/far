@@ -1,5 +1,5 @@
 # far
-C program to find and replace contents of a file.
+Linux Terminal C program to find and replace contents of a file.
 
 Note: This software is currently in development.  Future updates will include more features and
 automatic Linux installation features.
