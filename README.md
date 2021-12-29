@@ -13,7 +13,7 @@ No method of automatic installation comes with the current version.  Future vers
 Compile source with GNU C Compiler and move executable to /bin directory.
 ```bash
  gcc far.c -o far
- sudo mv far /bin
+ sudo mv far /usr/bin
 ```
 
 ## Usage
