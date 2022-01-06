@@ -7,7 +7,10 @@ automatic Linux installation features.
 
 ## Installation
 ### Automatic 
-No method of automatic installation comes with the current version.  Future versions will contain this feature.
+Automatic installation to `usr/bin/` directory.  Make sure to be inside of the project directory.
+```bash
+make install
+```
 
 ### Manual
 Compile source with GNU C Compiler and move executable to /bin directory.
@@ -34,6 +37,13 @@ Replaces all instances of the word `hello` with the word `howdy` in a file named
 ```bash
 far greeting.txt "hello" "howdy"
 ```
+
+
+## Updates
+This is an ongoing project.  The following features are planned to be added to this program:
+- Regex support
+- Multi-file operations
+- Better support for autotools
 
 
 ## Contributing
