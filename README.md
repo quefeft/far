@@ -6,7 +6,7 @@ automatic Linux installation features.
 
 
 ## Installation
-### Automatic
+### Automatic 
 No method of automatic installation comes with the current version.  Future versions will contain this feature.
 
 ### Manual
