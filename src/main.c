@@ -3,6 +3,25 @@
 #include<string.h>
 
 
+char esc_chars[] = {'a','b','f','n','r','t','v','\\','"','\0'};
+char esc_codes[] = {0x07,0x08,0x0c,0x0a,0x0d,0x09,0x0b,0x5c,0x22};
+
+
+char get_escape_code(char c){
+	char code=-1;
+	int i=0;
+	while(code == -1 && esc_chars[i] != '\0'){
+		if(esc_chars[i] == c){
+			code = esc_codes[i];
+		}//match
+		++i;
+	}//while
+	return(code);
+}//get_escape_code
+
+
+
+
 int find_replace(const char * srcname, const char * destname, const char * pattern, const char * replace){
 	FILE *sfp = fopen(srcname, "r");
 
@@ -10,14 +29,25 @@ int find_replace(const char * srcname, const char * destname, const char * patte
 
 	char c = fgetc(sfp);
 	while(c != EOF){
-		if(c == pattern[0]){
+		if((c == pattern[0] && pattern[0] != '\\') || (pattern[0] == '\\' && c == get_escape_code(pattern[1]))){
 			char *str = (char*)malloc(strlen(pattern));
 			int k=0, match = 0;
+			char next_char = pattern[k];
 			str[k] = c;
-			while(c == pattern[k] && !match){
+			while(c == next_char && !match){
 				c = fgetc(sfp);
 				++k;
-				str[k] = c;
+				next_char = pattern[k];
+				if(pattern[k] == '\\'){
+					next_char = get_escape_code(pattern[++k]);
+					if(next_char == -1){
+						fprintf(stderr, "Error parsing escape sequence. Escaped char does not match implemented escape codes. Escaped char hex value: 0x%x\n", pattern[k]);
+					}//escape error
+				}//slash to get next char
+
+				str[k] = next_char;
+
+				//match at the end
 				if(pattern[k] == '\0'){match = 1;}
 			}//while
 			str[k] = '\0';
@@ -27,6 +57,7 @@ int find_replace(const char * srcname, const char * destname, const char * patte
 			else{
 				fputs(str, tmpf);
 			}
+			free(str);
 		}//first char match
 		fputc(c, tmpf);
 		c = fgetc(sfp);
