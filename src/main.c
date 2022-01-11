@@ -59,8 +59,10 @@ int find_replace(const char * srcname, const char * destname, const char * patte
 			}
 			free(str);
 		}//first char match
-		fputc(c, tmpf);
-		c = fgetc(sfp);
+		else{
+			fputc(c, tmpf);
+			c = fgetc(sfp);
+		}
 	}//while	
 
 	
