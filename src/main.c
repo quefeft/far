@@ -21,6 +21,28 @@ char get_escape_code(char c){
 
 
 
+void escape_string(char *str){
+	int i=0;
+	char c = *(str+i);
+	while(c != '\0'){
+		if(c == '\\'){
+			c = *(str+i+1);
+			char new_c = get_escape_code(c);
+			*(str+i) = new_c;
+			//move up rest of string
+			int k=1;
+			while(*(str+i+k) != '\0'){
+				*(str+i+k) = *(str+i+k+1);
+				++k;
+			}//while move up
+		}//if the char is
+		++i;
+		c = *(str+i);
+	}//while
+}//escape_string
+
+
+
 
 int find_replace(const char * srcname, const char * destname, const char * pattern, const char * replace){
 	FILE *sfp = fopen(srcname, "r");
@@ -113,6 +135,9 @@ int main(int argc, const char * argv[]){
 		fprintf(stderr, "far: error - Argument count error.\n");
 		return(-1);
 	}
+
+
+	escape_string(replace);//parse and escape sequences in replacement str.
 
 	
 	find_replace(src, dest, pattern, replace);
