@@ -41,9 +41,10 @@ far greeting.txt "hello" "howdy"
 
 ## Updates
 This is an ongoing project.  The following features are planned to be added to this program:
-- Regex support
+- Regex support (currently in development)
 - Multi-file operations
 - Better support for autotools
+- Standard input support
 
 
 ## Contributing
